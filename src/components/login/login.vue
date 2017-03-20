@@ -1,0 +1,58 @@
+<template>
+	<div>
+		<div hide-nav-bar="true" class="pane" nav-view="active"
+				  style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
+			<div class="padding text-center scroll-content ionic-scroll  has-footer">
+				<div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+					<div style="height: 25px"></div>
+
+					<img src="./logo.svg" style="width: 65px; height: auto">
+
+					<h2>微聊</h2>
+
+					<div style="height: 25px"></div>
+
+					<div class="border-none disable-user-behavior">
+						<div class="list">
+							<div class="item-input border-bottom item">
+								<input type="email" placeholder="邮箱">
+							</div>
+							<div class="item-input border-bottom item">
+								<input type="password" placeholder="密码">
+							</div>
+						</div>
+					</div>
+					<div class="padding">
+						<a class="button button-clear button-large" href="#/tab/activities">
+							登录
+						</a>
+					</div>
+				</div>
+				<div class="scroll-bar scroll-bar-v">
+					<div class="scroll-bar-indicator scroll-bar-fade-out"
+						 style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div>
+				</div>
+			</div>
+			<div class="bar bar-footer">
+				<router-link class="button button-clear" to="/register">注册</router-link>
+				<router-link class="button button-clear" to="/forget">忘记密码？</router-link>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script type="text/ecmascript-6">
+	export default {
+		props: {},
+		data() {
+			return {};
+		},
+		methods: {},
+		components: {}
+	};
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+
+
+</style>
