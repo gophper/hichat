@@ -1,5 +1,5 @@
 <template>
-	<h1> recent!</h1>
+	<h1> friends!</h1>
 </template>
 
 <script type="text/ecmascript-6">
