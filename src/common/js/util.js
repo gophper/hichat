@@ -19,3 +19,6 @@ export function urlParse() {
   }
   return obj;
 };
+export function goback() {
+	window.history.back();
+}
