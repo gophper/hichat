@@ -8,7 +8,7 @@ import group from 'components/group/group';
 import login from 'components/login/login';
 import forget from 'components/forget/forget';
 import register from 'components/register/register';
-import 'common/stylus/index.styl';
+import createMsg from 'components/recent/createMsg';
 Vue.use(VueRouter);
 Vue.use(VueResource);
 const routes = [{
@@ -25,6 +25,9 @@ const routes = [{
 		}
 	]
 }, {
+	path: '/create_msg',
+	component: createMsg
+},{
 	path: '/register',
 	component: register
 }, {
