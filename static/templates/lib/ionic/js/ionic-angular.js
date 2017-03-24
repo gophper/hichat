@@ -1594,7 +1594,7 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
 
 /**
  * @ngdoc method
- * @name $ionicConfigProvider#spinner.icon
+ * @name spinner.icon
  * @description Default spinner icon to use.
  * @param {string} value Can be: `android`, `ios`, `ios-small`, `bubbles`, `circles`, `crescent`,
  * `dots`, `lines`, `ripple`, or `spiral`.

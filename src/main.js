@@ -41,10 +41,11 @@ const routes = [{
 const router = new VueRouter({
 	routes
 });
-
 const v = new Vue({
 	el: '#app',
 	router,
+	beforeMount(){
+		Vue.self = this;
+	},
 	render: h => h(App)
 });
-window.console.log(v.$data);

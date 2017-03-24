@@ -1,42 +1,60 @@
 <template>
-	<span  class="">
-		<div class="item-remove-animate item-avatar item item-complex item-right-editable"	 >
-			<router-link class="item-content"  to="/room/room_d">
-			<img src="/static/img/portrait/user02.jpg">
-				<!-- ngIf: room.roomType!='group' -->
-			<span class="badge avatar-badge avatar-badge-s badge-stable"  >
-				<!-- ngIf: room.roomType=='ms_friend' -->
-				<!-- ngIf: room.roomType=='fb_friend' -->
-				<i class="icon ion-social-facebook light"></i>
-				<!-- end ngIf: room.roomType=='fb_friend' -->
-			</span>
-				<!-- end ngIf: room.roomType!='group' -->
-
-			<h3>
-				<small class="v-binding">Eric</small>
-			</h3>
-			<p class="v-binding">Angular.</p>
-			<span class="item-note v-binding">Active 1h ago</span>
-
-			</router-link>
-			<div class="item-options invisible">
-				<div class="button-assertive button" >
-					Delete
-				</div>
-			</div>
-		</div>
+	<span v-if="type === 1" class="">
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:title="item.sNickName"
+			:value="item.sContent"
+			:time="item.dtCreateTime">
+		</mt-cell-swipe>
+	</div>
 	</span>
+
+	<span v-else-if="type === 2" >
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:title="item.sGroupName"
+			:value="item.sContent"
+			:time="item.dtCreateTime">
+		</mt-cell-swipe>
+	</div>
+	</span>
+
 </template>
 
 <script type="text/ecmascript-6">
+	import MtCellSwipe from 'components/common/cell-swipe';
 	export default {
-		props: {},
+		props: {
+			item:{
+		        type:Object
+			},
+			type:{
+				type:Number
+			},
+			hasRightBtn:Boolean
+		},
 		data() {
 			return {
-				msgList: []
+				list: []
 			};
 		},
+		created() {
+		    if(!this.hasRightBtn){
+				this.rightButtons = [];
+				return;
+			}
+			this.rightButtons = [
+				{
+					content: '移除',
+					style: { background: 'red', color: '#fff' },
+					handler: () => this.$messagebox('delete')
+				}
+			];
+		},
 		methods: {},
-		components: {}
+		components: {MtCellSwipe}
 	};
 </script>
+

@@ -43,6 +43,7 @@
 	.fade-enter, .fade-leave-active {
 		opacity: 0
 	}
+
 </style>
 <!--<style lang="stylus" rel="stylesheet/stylus">
 </style>-->

@@ -1,10 +1,10 @@
 <template>
-	<div v-if="friendList" class="disable-user-behavior">
-		<div class="list">
+		<div v-if="friends">
 			<!--  好友列表-->
-			<portraitCard></portraitCard>
+			<div  v-for="friend in friends">
+				<portraitCard :item="friend" :hasRightBtn="hasRightBtn" :type="1"></portraitCard>
+			</div>
 		</div>
-	</div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -13,8 +13,9 @@
 	export default {
 		props: {
 			friends:{
-			    type:'Array'
-			}
+			    type:Array
+			},
+			hasRightBtn:Boolean
 		},
 		data() {
 			return {

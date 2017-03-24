@@ -24,3 +24,12 @@
 	};
 </script>
 
+<style>
+	.bar.bar-stable {
+		border-color: #BABABA;
+		background-color: #d9d9d9;
+		background-image: linear-gradient(0deg, #BABABA, #BABABA 50%, transparent 50%);
+		color: #444;
+	}
+</style>
+
