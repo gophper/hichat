@@ -1,5 +1,5 @@
 <template>
-	<span v-if="type === 1" class="">
+	<span v-if="type === 1" >
 		<div class="page-cell">
 		<mt-cell-swipe
 			:right="rightButtons"
@@ -19,6 +19,15 @@
 			:time="item.dtCreateTime">
 		</mt-cell-swipe>
 	</div>
+	</span>
+
+	<span v-else-if="type === 3" >
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:title="item.sNickName">
+		</mt-cell-swipe>
+		</div>
 	</span>
 
 </template>

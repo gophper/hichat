@@ -1,56 +1,55 @@
 <template>
-	<div class="page-loadmore">
-		<h1 class="page-title">Pull down</h1>
-		<p class="page-loadmore-desc">在列表顶端, 按住 - 下拉 - 释放可以获取更多数据</p>
-		<p class="page-loadmore-desc">此例请使用手机查看</p>
-		<div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-			<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" ref="loadmore">
-				<ul class="page-loadmore-list">
-					<li v-for="item in list" class="page-loadmore-listitem">{{ item }}</li>
-				</ul>
-				<div slot="top" class="mint-loadmore-top">
-					<span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
-					<span v-show="topStatus === 'loading'">
-                       <mt-spinner type="snake"></mt-spinner>
-                   </span>
+	<div>
+		<div class="bar-stable bar bar-header disable-user-behavior" align-title="center">
+			<div class="buttons buttons-left" style="transition-duration: 0ms;"></div>
+			<div class="title title-center header-item" style="left: 73px; right: 73px;
+		transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">群组
+			</div>
+			<div class="buttons buttons-right" style="transition-duration: 0ms;">
+			<span class="right-buttons">
+        <button class="button button-clear button-positive" @click="openNewGroup">创建</button>
+    </span>
+			</div>
+		</div>
+		<div class="scroll-content ionic-scroll  has-header has-tabs">
+			<div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+				<!-- ngRepeat: groups in groupRow -->
+				<div class="row">
+					<!-- ngRepeat: room in groups -->
+					<div class="col col-50" v-for="room in groups">
+						<div class="list card">
+							<a nav-direction="forward" class="item item-avatar item-avatar-center item-avatar-l text-center"
+							   href="#/room/room_a">
+								<img :src="room.sPorTrait" >
+
+								<h3>
+									<small class="ng-binding">{{room.sGroupName}}</small>
+								</h3>
+
+								<p class="ng-binding">{{room.dtCreateTime}}</p>
+							</a>
+
+							<a nav-direction="forward" class="item item-divider text-center" href="#/room/room_a">
+								<p class="ng-binding">{{room.sMembers}}</p>
+							</a>
+						</div>
+					</div>
+					<!-- end ngRepeat: room in groups -->
 				</div>
-			</mt-loadmore>
+				<!-- end ngRepeat: groups in groupRow -->
+
+
+			</div>
+			<div class="scroll-bar scroll-bar-v">
+				<div class="scroll-bar-indicator scroll-bar-fade-out"
+					 style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div>
+			</div>
 		</div>
 	</div>
 </template>
 
 <style lang="css">
-	@component-namespace mint-spinner {
-		@component double-bounce {
-			position: relative;
 
-			@descendent bounce1, bounce2 {
-				width: 100%;
-				height: 100%;
-				border-radius: 50%;
-				opacity: 0.6;
-				position: absolute;
-				top: 0;
-				left: 0;
-
-				animation: mint-spinner-double-bounce 2.0s infinite ease-in-out;
-			}
-
-			@descendent bounce2 {
-				animation-delay: -1.0s;
-			}
-		}
-	}
-
-	@keyframes mint-spinner-double-bounce {
-		0%, 100% {
-			transform: scale(0.0);
-		}
-
-		50% {
-			transform: scale(1.0);
-		}
-	}
 </style>
 
 <script type="text/babel">
@@ -59,41 +58,75 @@
 	export default {
 		data() {
 			return {
-				list: [],
-				topStatus: '',
-				wrapperHeight: 0
+				groups: [{
+					iGroupId: '1',
+					sGroupName: '群1',
+					sRemark: '专门聊八卦的群',
+					iCreatorId: '1',
+					iNumMember: '3',
+					dtCreateTime: '2017-02-23 23:44:34',
+					dtLastActiveTime: '2017-02-24 12:44:34',
+					sMembers: '张三，李四，王五',
+					sPorTrait:'/static/img/thumbnail02.jpg'
+				},{
+					iGroupId: '5',
+					sGroupName: '群2',
+					sRemark: '专门聊八卦的群',
+					iCreatorId: '1',
+					iNumMember: '3',
+					dtCreateTime: '2017-02-23 23:44:34',
+					dtLastActiveTime: '2017-02-24 12:44:34',
+					sMembers: '张三，李四，王五',
+					sPorTrait:'/static/img/thumbnail02.jpg'
+				},{
+					iGroupId: '2',
+					sGroupName: '群3',
+					sRemark: '专门聊八卦的群',
+					iCreatorId: '1',
+					iNumMember: '3',
+					dtCreateTime: '2017-02-23 23:44:34',
+					dtLastActiveTime: '2017-02-24 12:44:34',
+					sMembers: '张三，李四，王五',
+					sPorTrait:'/static/img/thumbnail02.jpg'
+				},{
+					iGroupId: '3',
+					sGroupName: '群4',
+					sRemark: '专门聊八卦的群',
+					iCreatorId: '1',
+					iNumMember: '3',
+					dtCreateTime: '2017-02-23 23:44:34',
+					dtLastActiveTime: '2017-02-24 12:44:34',
+					sMembers: '张三，李四，王五',
+					sPorTrait:'/static/img/thumbnail02.jpg'
+				},{
+					iGroupId: '4',
+					sGroupName: '群5',
+					sRemark: '专门聊八卦的群',
+					iCreatorId: '1',
+					iNumMember: '3',
+					dtCreateTime: '2017-02-23 23:44:34',
+					dtLastActiveTime: '2017-02-24 12:44:34',
+					sMembers: '张三，李四，王五',
+					sPorTrait:'/static/img/thumbnail02.jpg'
+				}]
+
 			};
 		},
 
 		methods: {
-			handleTopChange(status) {
-				this.topStatus = status;
-			},
+			openNewGroup(){
 
-			loadTop() {
-				setTimeout(() => {
-					let firstValue = this.list[0];
-					for (let i = 1; i <= 10; i++) {
-						this.list.unshift(firstValue - i);
-					}
-					this.$refs.loadmore.onTopLoaded();
-				}, 1500);
 			}
 		},
 
 		created() {
-			for (let i = 1; i <= 20; i++) {
-				this.list.push(i);
-			}
+
 		},
 
 		mounted() {
-			this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top;
+
 		},
-		components:{
-		    MtLoadmore,
-			MtSpinner
-		}
+		components: {}
 	};
 </script>
 

@@ -1,9 +1,12 @@
 <template>
 	<div>
-		<recentHeader></recentHeader>
-		<div class="scroll-content ionic-scroll  has-header has-tabs">
-			<div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
-				<mt-loadmore :top-method="loadTop"  @top-status-change="handleTopChange" ref="loadmore">
+		<div ref="recent">
+			<recentHeader ></recentHeader>
+		</div>
+
+		<div  class="scroll-content ionic-scroll">
+			<div class="page-loadmore-wrapper" ref="wrapper"  :style="{ height: wrapperHeight + 'px',top: headHeight + 'px' }">
+				<mt-loadmore :top-method="loadTop"   :noScrollBar="true" @top-status-change="handleTopChange" ref="loadmore">
 					<div v-if="msgList" class="disable-user-behavior">
 						<div class="list">
 							<searchMsg @openInput="handleOpenSearchReq"></searchMsg>
@@ -14,7 +17,7 @@
 							<groupList :groups="msgList.fromGroups" :hasRightBtn="true"></groupList>
 						</div>
 					</div>
-					<div slot="top" class="mint-loadmore-top">
+					<div slot="top" ref="loadmoreTop"  class="mint-loadmore-top">
 						<span v-show="topStatus !== 'loading'" :class="{ 'is-rotate': topStatus === 'drop' }">↓</span>
 							<span v-show="topStatus === 'loading'">
 						   <mt-spinner type="snake"></mt-spinner>
@@ -43,6 +46,7 @@
 				list: [],
 				topStatus: '',
 				wrapperHeight: 0,
+				headHeight:0,
 				msgList: {
 				    fromFriends:[{
 						iFromUserId:1,
@@ -71,37 +75,37 @@
 					}],
 					fromGroups:[{
 						iGroupMsgId:1,
-						sGroupName:'马云工作组',
+						sGroupName:'6马云工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖假货的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'马化腾工作组',
+						sGroupName:'5马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'马化腾工作组',
+						sGroupName:'4马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'马化腾工作组',
+						sGroupName:'3马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'马化腾工作组',
+						sGroupName:'last2马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'马化腾工作组',
+						sGroupName:'last1马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
@@ -127,9 +131,17 @@
 				Vue.refSearchWin.globalOpenSearchWin=e;
 			}
 		},
+		computed:{
+
+		},
 		mounted() {
-			console.log("this.$refs.tabs.getBoundingClientRect().height:"+document.getElementById('tabs').getBoundingClientRect().height);
-			this.wrapperHeight = document.documentElement.clientHeight - this.$refs.wrapper.getBoundingClientRect().top-document.getElementById('tabs').getBoundingClientRect().height;
+			let elment = this.$refs.recent;
+			while(!elment.getBoundingClientRect().height){
+				elment = elment.lastChild;
+			}
+			this.headHeight = elment.getBoundingClientRect().height+1;
+			this.wrapperHeight = document.documentElement.clientHeight-this.headHeight
+				-document.getElementById('tabs').getBoundingClientRect().height;
 		},
 		components: {
 		    searchMsg,
@@ -142,22 +154,3 @@
 		}
 	};
 </script>
-<style>
-
-	.page-loadmore .mint-spinner {
-		display: inline-block;
-		vertical-align: middle;
-	}
-
-	.mint-loadmore-bottom span {
-		display: inline-block;
-		-webkit-transition: .2s linear;
-		transition: .2s linear;
-		vertical-align: middle
-	}
-	.mint-loadmore-bottom span.is-rotate {
-		-webkit-transform: rotate(180deg);
-		transform: rotate(180deg);
-	}
-
-</style>

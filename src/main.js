@@ -3,11 +3,13 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import App from './App';
 import main from 'components/main/main';
-import recent from 'components/recent/recent';
+import recent from 'components/recent/recent2';
 import group from 'components/group/group';
 import login from 'components/login/login';
 import forget from 'components/forget/forget';
 import register from 'components/register/register';
+import chatroom from 'components/chatroom/chatroom';
+import friends from 'components/friends/friends';
 import createMsg from 'components/recent/createMsg';
 Vue.use(VueRouter);
 Vue.use(VueResource);
@@ -22,6 +24,14 @@ const routes = [{
 		{
 			path: 'group',
 			component: group
+		},
+		{
+			path: 'friends',
+			component: friends
+		},
+		{
+			path: 'chatroom',
+			component: chatroom
 		}
 	]
 }, {

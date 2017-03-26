@@ -225,7 +225,6 @@
 		min-height: 75px;
 		position: relative;
 		z-index: 2;
-		border: 1px solid #eeeeee;
 		background-color: #fff;
 		display: block;
 		color: inherit;
