@@ -1,5 +1,6 @@
 <template>
-	<span v-if="type === 1" class="">
+	<!--朋友消息-->
+	<span v-if="type === 1" >
 		<div class="page-cell">
 		<mt-cell-swipe
 			:right="rightButtons"
@@ -9,7 +10,7 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
-
+   <!--群消息-->
 	<span v-else-if="type === 2" >
 		<div class="page-cell">
 		<mt-cell-swipe
@@ -20,7 +21,28 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
-
+    <!--朋友 row cell-->
+	<span v-else-if="type === 3" >
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:title="item.sNickName">
+		</mt-cell-swipe>
+		</div>
+	</span>
+	<!--朋友 row cell 带checkbox选项-->
+	<span v-else-if="type === 4" >
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:title="item.sNickName">
+			<label class="checkbox mint-row-item" slot="checkbox2">
+					<input type="checkbox" ng-model="friend.checked" ng-checked="friend.checked"
+						   class="ng-valid ng-dirty ng-valid-parse ng-touched" checked="checked" value="on">
+				</label>
+		</mt-cell-swipe>
+		</div>
+	</span>
 </template>
 
 <script type="text/ecmascript-6">

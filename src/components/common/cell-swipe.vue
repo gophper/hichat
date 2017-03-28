@@ -14,7 +14,7 @@
 		:is-link="isLink"
 		ref="cell"
 		:value="value">
-
+		<span slot="checkbox3"><slot name="checkbox2"></slot></span>
 		<div slot="left"	class="mint-cell-swipe-buttongroup"	ref="left">
 			<a class="mint-cell-swipe-button"  v-for="btn in left"  :style="btn.style"   @click.stop="btn.handler && btn.handler(), swipeMove()"
 			   v-html="btn.content"></a>
@@ -225,7 +225,6 @@
 		min-height: 75px;
 		position: relative;
 		z-index: 2;
-		border: 1px solid #eeeeee;
 		background-color: #fff;
 		display: block;
 		color: inherit;

@@ -4,7 +4,6 @@
 			<i class="icon ion-ios-clock"></i>
 			<span class="tab-title ng-binding" >最近</span>
 		</router-link>
-
 		<router-link  class="tab-item"  to="/group">
 			<i class="icon ion-ios-people-outline"></i>
 			<span class="tab-title ng-binding" >群组</span>
@@ -15,7 +14,7 @@
 			<span class="tab-title ng-binding" >好友</span>
 		</router-link>
 
-		<router-link  class="tab-item"  to="/setting">
+		<router-link  class="tab-item"  to="/chatroom">
 			<i class="icon ion-ios-gear-outline"></i>
 			<span class="tab-title ng-binding" >设置</span>
 		</router-link>
@@ -33,3 +32,4 @@
 	};
 
 </script>
+chatroom
