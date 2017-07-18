@@ -482,16 +482,14 @@
 		},
 
 		mounted() {
-		    console.log("this.$el:"+this.$el);
-		    let tabs = document.getElementById('tabs');
-			console.log("tabs:"+tabs);
-			//改变层级关系之后，这里不及时改正，里很容易出问题，以后把tabs注册为全局对象
-			this.wrapperBottom = tabs.clientHeight;
+		    console.log(this.$el);
+			this.wrapperBottom = this.$parent.$parent.$parent.$refs.tabs.$el.clientHeight;
 			this.wrapper = this.$parent.$refs.wrapper;
-			this.wrapperHeight =  document.documentElement.clientHeight-this.headHeight	-document.getElementById('tabs').getBoundingClientRect().height;
+			this.wrapperHeight =  document.documentElement.clientHeight-this.headHeight
+				-document.getElementById('tabs').getBoundingClientRect().height;
 			this.height = this.$el.getBoundingClientRect().height;
-			this.bottomTransitionLimit = - (this.$el.getBoundingClientRect().height-(this.headHeight+ this.wrapperHeight)-(Math.abs(this.$el.getBoundingClientRect().top)));
 			setTimeout(()=>{
+				this.bottomTransitionLimit = - (this.$el.getBoundingClientRect().height-(this.headHeight+ this.wrapperHeight)-(Math.abs(this.$el.getBoundingClientRect().top)));
 				console.log("bottomTransitionLimit:"+this.bottomTransitionLimit+"      this.this.headHeight:"+this.$el.getBoundingClientRect().height);
 			},1000);
 

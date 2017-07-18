@@ -8,12 +8,13 @@
 				<div :class="changeBg" class="modal slide-in-up">
 					<!--消息搜索输入组件-->
 					<searchInput :shouldOpen="globalOpenSearchWin"></searchInput>
-					<loadmorePanel>
+					<msgsFriends>
 						<!--  好友消息列表-->
-						<friendMsgList  :hasRightBtn="false"></friendMsgList>
+						<friendList :friends="msgList.fromFriends" :hasRightBtn="false"></friendList>
+
 						<!-- 群消息列表 -->
-						<groupMsgList  :hasRightBtn="false"></groupMsgList>
-					</loadmorePanel>
+						<groupList :groups="msgList.fromGroups" :hasRightBtn="false"></groupList>
+					</msgsFriends>
 				</div>
 			</div>
 		</div>
@@ -27,9 +28,10 @@
 <script type="text/ecmascript-6">
 	import Vue from 'vue';
 	import searchInput from 'components/common/search-input.vue';
-	import friendMsgList from 'components/msg/friend-msg-list';
-	import groupMsgList from 'components/msg/group-msg-list';
-	import loadmorePanel from 'components/common/loadmore-panel';
+	import friendList from 'components/friends/friendList';
+	import groupList from 'components/group/groupList';
+	import mtLoadmore from 'components/common/loadmore';
+	import msgsFriends from 'components/common/msgs-friends';
 	export default {
 		props: {
 			openSearchWin: {
@@ -38,7 +40,92 @@
 		},
 		data() {
 			return {
-				globalOpenSearchWin: false
+				globalOpenSearchWin: false,
+				hasMsgsTotal: false,
+				topStatus: '',
+				msgList: {
+					fromFriends: [{
+						iFromUserId: 1,
+						sNickName: '1马云',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖假货的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iFromUserId: 2,
+						sNickName: '2马化腾',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}],
+					fromGroups: [{
+						iGroupMsgId: 1,
+						sGroupName: '3马云工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖假货的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '4马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '5马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					},  {
+						iGroupMsgId: 2,
+						sGroupName: '8马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '9马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '10马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '11马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '12马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '13马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '14马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}, {
+						iGroupMsgId: 2,
+						sGroupName: '15马化腾工作组',
+						dtCreateTime: '2017-3-21 15:42:12',
+						sContent: '我是卖Qb的',
+						sPortrait: 'http://localhost:8088/static/img/portrait/user02.jpg'
+					}]
+				}
+
 			};
 		},
 		mounted(){
@@ -68,9 +155,9 @@
 		},
 		components: {
 			searchInput,
-			friendMsgList,
-			groupMsgList,
-			loadmorePanel
+			friendList,
+			groupList,
+			msgsFriends
 		}
 	};
 

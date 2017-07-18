@@ -2,7 +2,16 @@
 	<transition name="fade">
 		<div>
 			<createMsgHeader></createMsgHeader>
-			<friendList  :hasRightBtn="false" :type="3" ></friendList>
+			<div class="scroll-content ionic-scroll  has-header has-tabs">
+				<div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+					<friendList></friendList>
+				</div>
+				<div class="scroll-bar scroll-bar-v">
+					<div class="scroll-bar-indicator scroll-bar-fade-out"
+						 style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div>
+				</div>
+			</div>
+
 		</div>
 	</transition>
 </template>
@@ -11,7 +20,7 @@
 
 	import createMsgHeader from 'components/recent/createMsgHeader';
 	import searchMsg from 'components/common/searchMsg';
-	import friendList from 'components/friends/friend-list'
+	import friendList from 'components/friends/friendList';
 	export default {
 		props: {},
 		data() {

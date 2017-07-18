@@ -1,7 +1,6 @@
 <template>
 
-	<a class="mint-cell" :href="href">
-		<slot name="checkbox3"></slot>
+	<a :id="'swipe_'+id" class="mint-cell" :href="href">
 		<span class="mint-cell-mask" v-if="isLink"></span>
 		<div class="mint-cell-left">
 			<slot name="left"></slot>
@@ -112,6 +111,7 @@
 		name: 'mt-cell',
 
 		props: {
+		    id:Number,
 			to: [String, Object],
 			icon: String,
 			title: String,

@@ -6,10 +6,8 @@
 			</div>
 			<div class="title" style="padding: 5px 0px; left: 44px; right: 44px;">
 				<div class="button-bar bar-light">
-					<a class="button button-outline button-positive active" :class="{active: true}"
-					   href="#/tab/friends/messenger">Messenger</a>
-					<a class="button button-outline button-positive" :class="{active: false}"
-					   href="#/tab/friends/active">Active</a>
+					<a class="button button-outline button-positive active" :class="{active: true}">Messenger</a>
+					<a class="button button-outline button-positive" :class="{active: false}" >Active</a>
 				</div>
 			</div>
 			<div class="buttons">
@@ -18,14 +16,19 @@
 			</div>
 		</div>
 
-		<friendList  :hasRightBtn="true" :type="3">
-			<div  slot="loadmore-header">
-				<div class="item-divider item">
-					<p>People with messenger</p>
+		<msgsFriends>
+			<div class="item-divider item">
+				<p>People with messenger</p>
+			</div>
+			<!--  好友列表-->
+			<div v-if="friendsList">
+				<!--  好友列表-->
+				<div  v-for="friend in friendsList">
+					<portraitCard :item="friend" :hasRightBtn="true" :type="3"></portraitCard>
 				</div>
 			</div>
-		</friendList>
-		<popupInput  ref="popup"  :title="popup.title" :tips="popup.tips" :inputType="popup.email"
+		</msgsFriends>
+		<popupInput  ref="popup" :url="url" :title="popup.title" :tips="popup.tips"  :inputType="popup.email"
 					 :placeholder="popup.placeholder" :submitCallback="popup.submitCallback">
 
 		</popupInput>
@@ -36,11 +39,16 @@
 <script type="text/ecmascript-6">
 
 	import popupInput from 'components/common/popup-input';
-	import friendList from 'components/friends/friend-list'
+	import msgsFriends from 'components/common/msgs-friends';
+	import portraitCard from 'components/common/portraitCard';
+	import axios from 'axios';
+	import {report} from 'common/js/util';
+	import Vue from 'vue';
 	export default {
 		props: {},
 		data() {
 			return {
+				url: Vue.apiUrl,
 			    popup:{
 			        title:'添加联系人',
 					tips:'输入好友邮箱地址',
@@ -48,7 +56,9 @@
 					placeholder:'邮箱地址',
 					submitCallback:()=>{},
 					hide:true
-				}
+				},
+				friendsList: []
+
 			};
 		},
 		methods: {
@@ -56,16 +66,54 @@
 				this.$refs.popup.hide = false;
 			},
 			openSearch(){
+
+			},
+			updateList(){
+			    let that = this;
+				axios({
+					'url': this.url+'/friend/list',
+					'method': 'post',
+					'headers':{ 'x-requested-with': 'XMLHttpRequest'}
+				}).then(function (response) {
+					if(response.data.ret !== 0 && response.data.msg){
+						alert(response.data.msg);
+					}
+					if(response.data.ret == 0){
+						//注意不能用this
+						that.friendsList = response.data.data;
+					}
+				}).catch(function (error) {
+					alert('系统繁忙，请稍后再试~');
+					report(error);
+				});
 			}
 		},
 		components: {
-		    friendList,
+			portraitCard,
+			msgsFriends,
 			popupInput
 		},
 		mounted(){
-		    //window.tester = this.popup;
-		    this.popup.submitCallback = function test(p){
-		        console.log('submitCallback dddddddddddddddddddd'+p);
+		    let that = this;
+			this.updateList();
+		    this.popup.submitCallback = function (val){
+				axios({
+					'url': this.url+'/friend/add',
+					 method: 'post',
+					'data': 'sEmail='+val,
+					'headers':{ 'x-requested-with': 'XMLHttpRequest'}
+				}).then(function (response) {
+					if(response.data.msg){
+						alert(response.data.msg);
+					}
+					if(response.data.ret == 0){
+						//注意不能用this
+						that.friendsList[that.friendsList.length] = response.data.data;
+					}
+				}).catch(function (error) {
+					alert('系统繁忙，请稍后再试~');
+					report(error);
+				});
 			}
 		}
 	};

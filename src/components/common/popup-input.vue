@@ -30,6 +30,7 @@
 			};
 		},
 		props: {
+		    url:String,
 			title:String,
 			tips:String,
 			inputType:String,

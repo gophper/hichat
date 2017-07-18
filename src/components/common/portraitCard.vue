@@ -1,6 +1,5 @@
 <template>
-	<!--朋友消息-->
-	<span v-if="type === 1" >
+	<span v-if="type === 1">
 		<div class="page-cell">
 		<mt-cell-swipe
 			:right="rightButtons"
@@ -10,8 +9,8 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
-   <!--群消息-->
-	<span v-else-if="type === 2" >
+
+	<span v-else-if="type === 2">
 		<div class="page-cell">
 		<mt-cell-swipe
 			:right="rightButtons"
@@ -21,41 +20,33 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
-    <!--朋友 row cell-->
-	<span v-else-if="type === 3" >
+	<!--好友列表-->
+	<span v-else-if="type === 3">
 		<div class="page-cell">
 		<mt-cell-swipe
 			:right="rightButtons"
+			:id="item.iUserId"
 			:title="item.sNickName">
 		</mt-cell-swipe>
 		</div>
 	</span>
-	<!--朋友 row cell 带checkbox选项-->
-	<span v-else-if="type === 4" >
-		<div class="page-cell">
-		<mt-cell-swipe
-			:right="rightButtons"
-			:title="item.sNickName">
-			<label class="checkbox mint-row-item" slot="checkbox2">
-					<input type="checkbox" ng-model="friend.checked" ng-checked="friend.checked"
-						   class="ng-valid ng-dirty ng-valid-parse ng-touched" checked="checked" value="on">
-				</label>
-		</mt-cell-swipe>
-		</div>
-	</span>
+
 </template>
 
 <script type="text/ecmascript-6">
 	import MtCellSwipe from 'components/common/cell-swipe';
+	import axios from 'axios';
+	import {report} from 'common/js/util';
+	import Vue from 'vue';
 	export default {
 		props: {
-			item:{
-		        type:Object
+			item: {
+				type: Object
 			},
-			type:{
-				type:Number
+			type: {
+				type: Number
 			},
-			hasRightBtn:Boolean
+			hasRightBtn: Boolean
 		},
 		data() {
 			return {
@@ -63,15 +54,35 @@
 			};
 		},
 		created() {
-		    if(!this.hasRightBtn){
+			if (!this.hasRightBtn) {
 				this.rightButtons = [];
 				return;
 			}
+			let that = this;
 			this.rightButtons = [
 				{
 					content: '移除',
-					style: { background: 'red', color: '#fff' },
-					handler: () => this.$messagebox('delete')
+					style: {background: 'red', color: '#fff'},
+					handler: (id) => {
+						axios({
+							'url': Vue.apiUrl + '/del',
+							'method': 'post',
+							'data': 'id='+id+'&act='+that.type,
+							'headers': {'x-requested-with': 'XMLHttpRequest'}
+						}).then(function (response) {
+							if (response.data.ret !== 0 && response.data.msg) {
+								alert(response.data.msg);
+							}
+							if (response.data.ret == 0) {
+								//注意不能用this
+								var swipe = window.document.getElementById('swipe_'+id);
+								var p = swipe.parentNode.removeChild(swipe)
+							}
+						}).catch(function (error) {
+							alert('系统繁忙，请稍后再试~');
+							report(error);
+						});
+					}
 				}
 			];
 		},
