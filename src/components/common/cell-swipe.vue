@@ -4,7 +4,7 @@
 		@click.native="swipeMove()"
 		@touchstart.native="startDrag"
 		@touchmove.native="onDrag"
-		@touchend.native="endDrag"
+		@touchend.native="endDrag($event)"
 		class="mint-cell-swipe"
 		:title="title"
 		:id="id"
@@ -15,7 +15,7 @@
 		:is-link="isLink"
 		ref="cell"
 		:value="value">
-
+       <!--  这一块暂时没用-->
 		<div slot="left"	class="mint-cell-swipe-buttongroup"	ref="left">
 			<a class="mint-cell-swipe-button"  v-for="btn in left"  :style="btn.style"   @click.stop="btn.handler && btn.handler(), swipeMove()"
 			   v-html="btn.content"></a>
@@ -28,8 +28,8 @@
    		 </span>
 
 		<div slot="right"	class="mint-cell-swipe-buttongroup"	ref="right">
-			<a	 class="mint-cell-swipe-button" v-for="btn in right" :style="btn.style"
-				  @click.stop="btn.handler && btn.handler(id), swipeMove()"  v-html="btn.content">
+			<a	 class="mint-cell-swipe-button"  :style="right.style"
+				  @click.stop="right.removeHandler && right.removeHandler(id), swipeMove()"  v-html="right.content">
 			</a>
 		</div>
 	</x-cell>
@@ -70,7 +70,7 @@
 		    id:Number,
 			to: String,
 			left: Array,
-			right: Array,
+			right: Object,
 			icon: String,
 			title: String,
 			label: String,
@@ -182,7 +182,17 @@
 				this.swipeMove(offsetLeft);
 			},
 
-			endDrag() {
+			endDrag(evt) {
+			    /*console.log(this.swiping+'|'+this.offsetLeft+'|'+this.id+this.$refs.right+'|'+evt.target);
+				console.log(evt.target);
+				console.log(this.$refs.right.childNodes[0] == evt.target);*/
+			    //不在滑动中，并且位移不超过5px，则认为是点击跳转
+			    if(Math.abs(this.offsetLeft) <= 20 || !this.offsetLeft){
+			        //不是点击“移除”
+			        if(this.$refs.right.childNodes[0] != evt.target){
+						this.right.clickHandler(this.id);
+					}
+				}
 				if (!this.swiping) return;
 				this.swipeLeaveTransition(this.offsetLeft > 0 ? -1 : 1);
 			}

@@ -19,19 +19,19 @@ const routes = [{
 	component: main,
 	children: [
 		{
-			path: 'recent',
+			path: '/recent',
 			component: recent
 		},
 		{
-			path: 'group',
+			path: '/group',
 			component: group
 		},
 		{
-			path: 'friends',
+			path: '/friends',
 			component: friends
 		},
 		{
-			path: 'chatroom',
+			path: '/chatroom/:uid',
 			component: chatroom
 		}
 	]

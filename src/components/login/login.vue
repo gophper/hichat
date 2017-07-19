@@ -45,6 +45,7 @@
 	import axios from 'axios';
 	import {report} from 'common/js/util';
 	import Vue from 'vue';
+	import store from 'common/js/store';
 	export default {
 		props: {},
 		data() {
@@ -78,6 +79,7 @@
 					}
 					if(response.data.ret == 0){
 						//路由到“最近的消息”
+						store.set('info',response.data.data);
 						Vue.router.push({ path: 'recent' })
 					}
 				}).catch(function (error) {

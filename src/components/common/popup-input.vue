@@ -48,8 +48,15 @@
 		                this.hide = true;
 					}
 				}else{
-		            console.log(this.submitCallback);
+		            alert('回调方法不存在');
 				}
+				var that = this;
+				setTimeout(function () {
+				    if(!that.hide){
+						that.buttonCanceled();
+					}
+				},60000);
+
 			}
 		},
 

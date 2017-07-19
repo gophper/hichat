@@ -50,7 +50,9 @@ module.exports = function (app, urlencodedParser) {
 					sEmail: frdInfo.sEmail,
 					sNickName: frdInfo.sNickName
 				};
-				util.responseJson(res, 0, '登录成功');
+				delete frdInfo['sPassword'];
+				delete frdInfo['sSalt'];
+				util.responseJson(res, 0, '登录成功',frdInfo);
 				return;
 			} else {
 				util.responseJson(res, -1, '密码有误');
@@ -64,56 +66,74 @@ module.exports = function (app, urlencodedParser) {
 	 * 添加好友
 	 */
 	app.post('/friend/add', urlencodedParser, function (req, res) {
-		if (typeof req.session.userInfo === 'undefined' || typeof req.session.userInfo.iUserId === 'undefined') {
-			util.responseJson(res, -2, '尚未登录！');
-			return;
-		}
-		var conn = util.db();
-		//res.connnect_ = conn;
-		var querySql = 'select * from tbuser where sEmail=?';
-		conn.query(querySql, [req.body.sEmail], function (err, result) {
-			if (err) {
-				util.log('error', err + addSql);
-				util.responseJson(res, -11, '系统繁忙，请稍后再试');
-				return;
-			} else if (result.length <= 0) {
-				util.responseJson(res, -13, '您要查找的用户不存在！');
-				return;
-			}
-			console.log(req.session.userInfo);
-			var frdInfo = result[0];
-			var addSql = "INSERT INTO tbfriend(ibelongTo,iUserId) VALUES(?,?)";
-			var addSqlParams = [req.session.userInfo.iUserId, frdInfo.iUserId];
-			console.log(addSqlParams);
-			var conn = util.db();
-			conn.query(addSql, addSqlParams, function (err, result) {
-				if (err) {
-					err && util.log('error', err);
-					util.responseJson(res, -12, '添加好友失败!');
-					return;
-				} else {
-					var sql = 'select * from tbuser u  where u.iUserId=?';
-					var conn = util.db();
-					conn.query(sql, [frdInfo.iUserId], function (err, result) {
-						if (err) {
-							util.log('error', err);
-							util.responseJson(res, -112, '系统繁忙，请稍后再试');
-							return;
-						} else if (result.length <= 0) {
-							util.responseJson(res, -13, '获取好友信息失败');
-							return;
-						}
-						util.responseJson(res, 0, '添加好友成功!', result[0]);
-						return;
-					});
-					conn.end();
+		var async = require('async');
+		console.time('waterfall');
+		async.waterfall([
+			function (callback) {
+				if (typeof req.session.userInfo === 'undefined' || typeof req.session.userInfo.iUserId === 'undefined') {
+					util.responseJson(res, -2, '尚未登录！');
 					return;
 				}
-			});
-			conn.end();
+				var conn = util.db();
+				var querySql = 'select * from tbuser where sEmail=?';
+				conn.query(querySql, [req.body.sEmail], function (err, result) {
+					var result = result ? result : [], retObj = null;
+					if (err) {
+						util.log('error', err);
+						util.responseJson(res, -11, '系统繁忙，请稍后再试');
+						callback(err, null);
+					} else if (result.length <= 0) {
+						util.responseJson(res, -13, '您要查找的用户不存在！');
+						callback('您要查找的用户不存在！', null);
+					} else {
+						retObj = result[0];
+						callback(null, retObj);
+					}
 
+				});
+				conn.end();
+			},
+			function (frdInfo, callback) {
+				console.log(frdInfo);
+				var addSql = "INSERT INTO tbfriend(ibelongTo,iUserId) VALUES(?,?)";
+				var addSqlParams = [req.session.userInfo.iUserId, frdInfo.iUserId];
+				console.log(addSqlParams);
+				var conn = util.db();
+				conn.query(addSql, addSqlParams, function (err, result) {
+					if (err) {
+						err && util.log('error', err);
+						util.responseJson(res, -12, '添加好友失败!');
+					}
+					callback(err, frdInfo);
+				});
+				conn.end();
+			},
+			function (frdInfo, callback) {
+				var sql = 'select * from tbuser u  where u.iUserId=?';
+				var conn = util.db();
+				conn.query(sql, [frdInfo.iUserId], function (err, result) {
+					var result = result ? result : [], retObj = null;
+					if (err) {
+						util.log('error', err);
+						util.responseJson(res, -12, '系统繁忙，请稍后再试');
+						callback(err, null);
+					} else {
+						if (result.length <= 0) {
+							util.responseJson(res, -13, '该用户不存在');
+							callback(null, null);
+						} else {
+							util.responseJson(res, 0, '添加好友成功!', result[0]);
+							callback(null, null);
+						}
+					}
+				});
+				conn.end();
+			}
+		], function (error, result) {
+			console.log('error: ' + error);
+			console.log('result: ' + result);
+			console.timeEnd('waterfall');
 		});
-		conn.end();
 	});
 	/**
 	 * 拉取好友列表
@@ -124,7 +144,8 @@ module.exports = function (app, urlencodedParser) {
 			return;
 		}
 		var conn = util.db();
-		var addSql = 'select * from tbuser u inner join tbfriend  f on  u.iUserId=f.iUserId where f.ibelongTo=?';
+		var addSql = 'select u.iUserId iUserId,sNickName,sEmail,sPorTrait,f.sDesc,sRemark,sLastMsg,iIsActive '+
+			'from tbuser u inner join tbfriend  f on  u.iUserId=f.iUserId where f.ibelongTo=?';
 		conn.query(addSql, [req.session.userInfo.iUserId], function (err, result) {
 			if (err) {
 				util.log('error', err + addSql);
@@ -133,26 +154,30 @@ module.exports = function (app, urlencodedParser) {
 			} else if (result.length <= 0) {
 				util.responseJson(res, -13, '暂无好友');
 				return;
-			}
-			;
+			};
+
 			util.responseJson(res, 0, '', result);
 			return;
 		});
 		conn.end();
 	});
 	app.post('/del', urlencodedParser, function (req, res) {
-		app.redirect('/friend/del');
+		res.redirect('/api/' + req.body.act + '/del?id=' + req.body.id);
 	});
-	app.post('/friend/del', urlencodedParser, function (req, res) {
+	app.get('/friend/del', urlencodedParser, function (req, res) {
 		if (typeof req.session.userInfo === 'undefined' || typeof req.session.userInfo.iUserId === 'undefined') {
 			util.responseJson(res, -2, '尚未登录！');
 			return;
 		}
+		if (!req.query.id) {
+			util.responseJson(res, -16, '参数异常');
+			return;
+		}
 		var conn = util.db();
-		var sql = 'DELETE FROM tbuser WHERE iUserId=? and ibelongTo=?';
-		conn.query(sql, [req.body.iFriendId, req.session.userInfo.iUserId], function (err, result) {
+		var sql = 'delete from tbfriend where iUserId=? and ibelongTo=?';
+		conn.query(sql, [req.query.id, req.session.userInfo.iUserId], function (err, result) {
 			if (err) {
-				util.log('error', err );
+				util.log('error', err);
 				util.responseJson(res, -11, '系统繁忙，请稍后再试');
 				return;
 			}
