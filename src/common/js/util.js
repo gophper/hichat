@@ -22,3 +22,10 @@ export function urlParse() {
 export function goback() {
 	window.history.back();
 }
+/**
+ * 数据上报
+ */
+export function report(error) {
+	//待实现
+	console.log(error);
+}

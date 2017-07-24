@@ -5,21 +5,21 @@
 				<div style="height: 25px"></div>
 				<h2>注册微聊</h2>
 				<div style="height: 25px"></div>
-				<div class="border-none disable-user-behavior">
+				<div class="border-none disable-user-behavior" id="reg_form">
 					<div class="list">
 						<div class="item-input border-bottom item">
-							<input type="email" placeholder="邮箱">
+							<input type="email" v-model="newUser.sEmail" name="sEmail" placeholder="邮箱">
 						</div>
 						<div class="item-input border-bottom item">
-							<input type="password" placeholder="密码">
+							<input type="password" v-model="newUser.sPassword" name="sPassword" placeholder="密码">
 						</div>
 						<div class="item-input border-bottom item">
-							<input type="text" placeholder="昵称">
+							<input type="text" v-model="newUser.sNickName" name="sNickName" placeholder="昵称">
 						</div>
 					</div>
 				</div>
 				<div class="padding">
-					<a class="button button-clear button-large" href="#/sign-up-name">
+					<a class="button button-clear button-large" @click="submitForm">
 						提交注册
 					</a>
 					<div style="height: 10px"></div>
@@ -35,12 +35,53 @@
 </template>
 
 <script type="text/ecmascript-6">
+	import axios from 'axios';
+	import {report} from 'common/js/util';
+	import Vue from 'vue';
 	export default {
 		props: {},
 		data() {
-			return {};
+			return {
+				regUrl: Vue.apiUrl+'/register',
+				newUser: {
+					sEmail: '',
+					sPassword: '',
+					sNickName: ''
+				}
+			};
 		},
-		methods: {},
+		methods: {
+			jsonToQuery(json){
+				if (typeof json === 'string') {
+					json = JSON.parse(json);
+				}
+				var query = '';
+				for (var key in json) {
+					query += !query ? key + "=" + json[key] : "&" + key + "=" + json[key];
+				}
+				return query;
+			},
+			submitForm () {
+				axios({
+					'url': this.regUrl, method: 'post',
+					'data': this.jsonToQuery(this.newUser),
+					'headers':{ 'x-requested-with': 'XMLHttpRequest'}
+				}).then(function (response) {
+				    if(response.data.msg){
+				        alert(response.data.msg);
+					}
+					if(response.data.ret == 0){
+				        //路由到“最近的消息”
+						Vue.router.push({ path: 'recent' })
+					}
+				}).catch(function (error) {
+				    alert('注册失败！');
+					report(error);
+				});
+
+			}
+		},
 		components: {}
 	};
+
 </script>

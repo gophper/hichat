@@ -11,10 +11,10 @@
 						<div class="list">
 							<searchMsg @openInput="handleOpenSearchReq"></searchMsg>
 							<!--  好友消息列表-->
-							<friendMsgList  :hasRightBtn="true"></friendMsgList>
+							<friendList :friends="msgList.fromFriends" :hasRightBtn="true"></friendList>
 
 							<!-- 群消息列表 -->
-							<groupMsgList :hasRightBtn="true"></groupMsgList>
+							<groupList :groups="msgList.fromGroups" :hasRightBtn="true"></groupList>
 						</div>
 					</div>
 					<div slot="top" ref="loadmoreTop"  class="mint-loadmore-top">
@@ -33,10 +33,12 @@
 <script type="text/ecmascript-6">
 	import Vue from 'vue';
 	import searchMsg from 'components/common/searchMsg';
-	import friendMsgList from 'components/msg/friend-msg-list';
-	import groupMsgList from 'components/group/group-msg-list';
+	import friendList from 'components/friends/friendList';
+	import groupList from 'components/group/groupList';
 	import recentHeader from 'components/recent/recentHeader';
 	import createMsg from 'components/recent/createMsg';
+	import mtLoadmore from 'components/common/loadmore';
+	import mtSpinner from 'components/common/spinner/spinner';
 	export default {
 		props: {},
 		data() {
@@ -44,7 +46,71 @@
 				list: [],
 				topStatus: '',
 				wrapperHeight: 0,
-				headHeight:0
+				headHeight:0,
+				msgList: {
+				    fromFriends:[{
+						iFromUserId:1,
+				        sNickName:'马云',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖假货的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iFromUserId:2,
+						sNickName:'马化腾',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iFromUserId:2,
+						sNickName:'马化腾',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iFromUserId:2,
+						sNickName:'马化腾',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					}],
+					fromGroups:[{
+						iGroupMsgId:1,
+						sGroupName:'6马云工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖假货的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iGroupMsgId:2,
+						sGroupName:'5马化腾工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iGroupMsgId:2,
+						sGroupName:'4马化腾工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iGroupMsgId:2,
+						sGroupName:'3马化腾工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iGroupMsgId:2,
+						sGroupName:'last2马化腾工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					},{
+						iGroupMsgId:2,
+						sGroupName:'last1马化腾工作组',
+						dtCreateTime:'2017-3-21 15:42:12',
+						sContent:'我是卖Qb的',
+						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
+					}]
+				}
 			};
 		},
 		methods: {
@@ -79,8 +145,8 @@
 		},
 		components: {
 		    searchMsg,
-			friendMsgList,
-			groupMsgList,
+			friendList,
+			groupList,
 			recentHeader,
 			createMsg,
 			mtLoadmore,

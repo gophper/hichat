@@ -7,6 +7,7 @@
 		@touchend.native="endDrag"
 		class="mint-cell-swipe"
 		:title="title"
+		:id="id"
 		:icon="icon"
 		:label="label"
 		:to="to"
@@ -14,7 +15,7 @@
 		:is-link="isLink"
 		ref="cell"
 		:value="value">
-		<span slot="checkbox3"><slot name="checkbox2"></slot></span>
+
 		<div slot="left"	class="mint-cell-swipe-buttongroup"	ref="left">
 			<a class="mint-cell-swipe-button"  v-for="btn in left"  :style="btn.style"   @click.stop="btn.handler && btn.handler(), swipeMove()"
 			   v-html="btn.content"></a>
@@ -27,8 +28,8 @@
    		 </span>
 
 		<div slot="right"	class="mint-cell-swipe-buttongroup"	ref="right">
-			<a	class="mint-cell-swipe-button" v-for="btn in right" :style="btn.style"
-				  @click.stop="btn.handler && btn.handler(), swipeMove()"  v-html="btn.content">
+			<a	 class="mint-cell-swipe-button" v-for="btn in right" :style="btn.style"
+				  @click.stop="btn.handler && btn.handler(id), swipeMove()"  v-html="btn.content">
 			</a>
 		</div>
 	</x-cell>
@@ -66,6 +67,7 @@
 		directives: {Clickoutside},
 
 		props: {
+		    id:Number,
 			to: String,
 			left: Array,
 			right: Array,
