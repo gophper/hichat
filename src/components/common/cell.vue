@@ -1,5 +1,4 @@
 <template>
-
 	<a :id="'swipe_'+id" class="mint-cell" :href="href">
 		<span class="mint-cell-mask" v-if="isLink"></span>
 		<div class="mint-cell-left">
@@ -20,67 +19,15 @@
 				<span class="mint-cell-time">
 					{{time}}
 				</span>
-				<div class="mint-cell-value" :class="{ 'is-link' : isLink }">
-					<slot>
-						<span class="mint-cell-value" v-text="value"></span>
-					</slot>
-				</div>
+				<slot name="value"></slot>
 			</div>
 
 		</div>
 		<div class="mint-cell-right">
 			<slot name="right"></slot>
 		</div>
-		<i v-if="isLink" class="mint-cell-allow-right"></i>
+
 	</a>
-
-	<!--	<a class="mint-cell mint-cell-swipe">
-
-			<div class="mint-cell-left">
-				<slot name="left"></slot>
-			</div>
-			<div class="mint-cell-wrapper" style="transform: translate3d(0px, 0px, 0px);">
-				<div class="mint-cell-title">
-					<span class="mint-cell-text">swipe me</span>
-				</div>
-				<div class="mint-cell-value"> aaaaaaaaaaaaaaaaaaaa</div>
-			</div>
-			<div class="mint-cell-right" style="transform: translate3d(52px, 0px, 0px);">
-				<div class="mint-cell-swipe-buttongroup">
-					<a class="mint-cell-swipe-button"	style="background: red; color: rgb(255, 255, 255);">移除</a>
-				</div>
-			</div>
-		</a>-->
-
-
-			<!--<span class="">
-			<div class="item-remove-animate item-avatar item item-complex item-right-editable">
-				<router-link class="item-content" to="/room/room_d">
-				<img src="/static/img/portrait/user02.jpg">
-					&lt;!&ndash; ngIf: room.roomType!='group' &ndash;&gt;
-				<span class="badge avatar-badge avatar-badge-s badge-stable">
-					&lt;!&ndash; ngIf: room.roomType=='ms_friend' &ndash;&gt;
-					&lt;!&ndash; ngIf: room.roomType=='fb_friend' &ndash;&gt;
-					<i class="icon ion-social-facebook light"></i>
-					&lt;!&ndash; end ngIf: room.roomType=='fb_friend' &ndash;&gt;
-				</span>
-					&lt;!&ndash; end ngIf: room.roomType!='group' &ndash;&gt;
-
-				<h3>
-					<small class="v-binding">Eric</small>
-				</h3>
-				<p class="v-binding">Angular.</p>
-				<span class="item-note v-binding">Active 1h ago</span>
-
-				</router-link>
-				<div class="item-options invisible">
-					<div class="button-assertive button">
-						Delete
-					</div>
-				</div>
-			</div>
-		</span>-->
-
 
 </template>
 
@@ -117,6 +64,7 @@
 			title: String,
 			label: String,
 			isLink: Boolean,
+			isCheck: Boolean,
 			time:String,
 			value: {}
 		},
@@ -240,4 +188,8 @@
 	font-size: 14px;
 	padding-top: 4px;
 }
+	.rect-item-check{
+		right:0;
+		position:absolute;
+	}
 </style>

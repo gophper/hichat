@@ -19,6 +19,16 @@ export function urlParse() {
   }
   return obj;
 };
+export function jsonToQuery(json){
+	if (typeof json === 'string') {
+		json = JSON.parse(json);
+	}
+	var query = '';
+	for (var key in json) {
+		query += !query ? key + "=" + json[key] : "&" + key + "=" + json[key];
+	}
+	return query;
+}
 export function goback() {
 	window.history.back();
 }
@@ -28,4 +38,29 @@ export function goback() {
 export function report(error) {
 	//待实现
 	console.log(error);
+}
+
+export function wsk(url)
+{
+	if ("WebSocket" in window)
+	{
+		alert("您的浏览器支持 WebSocket!");
+
+		// 打开一个 web socket
+		var ws = new WebSocket(url);
+		return ws;
+
+	}
+	else
+	{
+		// 浏览器不支持 WebSocket
+		alert("您的浏览器不支持 WebSocket!");
+		return false;
+	}
+}
+
+export function store(error) {
+	//待实现
+	let st = require('./store.js');
+	return st;
 }

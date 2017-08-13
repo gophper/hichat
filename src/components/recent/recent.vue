@@ -81,30 +81,6 @@
 						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 					},{
 						iGroupMsgId:2,
-						sGroupName:'5马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
-						sGroupName:'4马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
-						sGroupName:'3马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
-						sGroupName:'last2马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
 						sGroupName:'last1马化腾工作组',
 						dtCreateTime:'2017-3-21 15:42:12',
 						sContent:'我是卖Qb的',

@@ -24,7 +24,7 @@
 			<div v-if="friendsList">
 				<!--  好友列表-->
 				<div  v-for="friend in friendsList">
-					<portraitCard :item="friend" :hasRightBtn="true" :type="3"></portraitCard>
+					<friendItem :isLink="true" :item="friend" :hasRightBtn="true" :type="3"></friendItem>
 				</div>
 			</div>
 		</msgsFriends>
@@ -40,10 +40,11 @@
 
 	import popupInput from 'components/common/popup-input';
 	import msgsFriends from 'components/common/msgs-friends';
-	import portraitCard from 'components/common/portraitCard';
+	import friendItem from 'components/friends/friendItem';
 	import axios from 'axios';
 	import {report} from 'common/js/util';
 	import Vue from 'vue';
+	import store from 'common/js/store';
 	export default {
 		props: {},
 		data() {
@@ -80,6 +81,7 @@
 					}
 					if(response.data.ret == 0){
 						//注意不能用this
+						store.set('frdlist_'+store.get('info').iUserId,response.data.data);
 						that.friendsList = response.data.data;
 					}
 				}).catch(function (error) {
@@ -89,7 +91,7 @@
 			}
 		},
 		components: {
-			portraitCard,
+			friendItem,
 			msgsFriends,
 			popupInput
 		},
@@ -100,6 +102,7 @@
 				axios({
 					'url': this.url+'/friend/add',
 					 method: 'post',
+					 async:false,
 					'data': 'sEmail='+val,
 					'headers':{ 'x-requested-with': 'XMLHttpRequest'}
 				}).then(function (response) {
@@ -108,12 +111,13 @@
 					}
 					if(response.data.ret == 0){
 						//注意不能用this
-						that.friendsList[that.friendsList.length] = response.data.data;
+						Vue.set(that.friendsList,that.friendsList.length,response.data.data);
 					}
 				}).catch(function (error) {
 					alert('系统繁忙，请稍后再试~');
 					report(error);
 				});
+				return true;
 			}
 		}
 	};

@@ -15,7 +15,7 @@
 			<span class="tab-title ng-binding" >好友</span>
 		</router-link>
 
-		<router-link  class="tab-item"  to="/chatroom">
+		<router-link  class="tab-item"  to="/setting">
 			<i class="icon ion-ios-gear-outline"></i>
 			<span class="tab-title ng-binding" >设置</span>
 		</router-link>

@@ -4,7 +4,7 @@
 		@click.native="swipeMove()"
 		@touchstart.native="startDrag"
 		@touchmove.native="onDrag"
-		@touchend.native="endDrag"
+		@touchend.native="endDrag($event)"
 		class="mint-cell-swipe"
 		:title="title"
 		:id="id"
@@ -13,25 +13,35 @@
 		:to="to"
 		:time="time"
 		:is-link="isLink"
+		:is-check="isCheck"
 		ref="cell"
 		:value="value">
-
-		<div slot="left"	class="mint-cell-swipe-buttongroup"	ref="left">
-			<a class="mint-cell-swipe-button"  v-for="btn in left"  :style="btn.style"   @click.stop="btn.handler && btn.handler(), swipeMove()"
+		<!--  这一块暂时没用-->
+		<div slot="left" class="mint-cell-swipe-buttongroup" ref="left">
+			<a class="mint-cell-swipe-button" v-for="btn in left" :style="btn.style"
+			   @click.stop="btn.handler && btn.handler(), swipeMove()"
 			   v-html="btn.content"></a>
 		</div>
-		<span	v-if="$slots.title"	slot="title">
+		<span v-if="$slots.title" slot="title">
 			<slot name="title">  </slot>
    		</span>
-		<span	v-if="$slots.icon" slot="icon">
+		<span v-if="$slots.icon" slot="icon">
      		 <slot name="icon"></slot>
    		 </span>
-
-		<div slot="right"	class="mint-cell-swipe-buttongroup"	ref="right">
-			<a	 class="mint-cell-swipe-button" v-for="btn in right" :style="btn.style"
-				  @click.stop="btn.handler && btn.handler(id), swipeMove()"  v-html="btn.content">
+		<div slot="right" class="mint-cell-swipe-buttongroup" ref="right">
+			<a class="mint-cell-swipe-button" :style="right.style"
+			   @click.stop="right.removeHandler && right.removeHandler(id), swipeMove()" v-html="right.content">
 			</a>
 		</div>
+		<div class="mint-cell-value" :class="{ 'is-link' : isLink }" slot="value">
+			<span class="mint-cell-value" v-text="value">			</span>
+			<label v-if="isCheck" class="checkbox rect-item-check">
+				<input type="checkbox" class="ng-valid ng-dirty  boxng-valid-parse ng-touched"
+					   checked="checked" value="on">
+			</label>
+			<i v-if="isLink" class="mint-cell-allow-right"></i>
+		</div>
+
 	</x-cell>
 </template>
 
@@ -67,15 +77,17 @@
 		directives: {Clickoutside},
 
 		props: {
-		    id:Number,
+			id: Number,
 			to: String,
 			left: Array,
-			right: Array,
+			right: Object,
+			refObj: Object,
 			icon: String,
 			title: String,
 			label: String,
-			time:String,
+			time: String,
 			isLink: Boolean,
+			isCheck: Boolean,
 			value: {}
 		},
 
@@ -93,7 +105,7 @@
 			this.rightWrapElm = this.rightElm.parentNode;
 			this.leftWidth = this.leftElm.getBoundingClientRect().width;
 			this.rightWidth = this.rightElm.getBoundingClientRect().width;
-			console.log("this.rightWidth"+this.rightWidth);
+			console.log("this.rightWidth" + this.rightWidth);
 			this.leftDefaultTransform = this.translate3d(-this.leftWidth - 1);
 			this.rightDefaultTransform = this.translate3d(this.rightWidth);
 
@@ -182,7 +194,17 @@
 				this.swipeMove(offsetLeft);
 			},
 
-			endDrag() {
+			endDrag(evt) {
+				/*console.log(this.swiping+'|'+this.offsetLeft+'|'+this.id+this.$refs.right+'|'+evt.target);
+				 console.log(evt.target);
+				 console.log(this.$refs.right.childNodes[0] == evt.target);*/
+				//不在滑动中，并且位移不超过5px，则认为是点击跳转
+				if (Math.abs(this.offsetLeft) <= 20 || !this.offsetLeft) {
+					//不是点击“移除”
+					if (this.$refs.right.childNodes[0] != evt.target && this.isLink) {
+						this.right.clickHandler(this.id);
+					}
+				}
 				if (!this.swiping) return;
 				this.swipeLeaveTransition(this.offsetLeft > 0 ? -1 : 1);
 			}
@@ -223,7 +245,8 @@
 		-moz-justify-content: center;
 		justify-content: center;
 	}
-	.mint-cell-swipe{
+
+	.mint-cell-swipe {
 		min-height: 75px;
 		position: relative;
 		z-index: 2;
@@ -235,6 +258,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+
 	.mint-cell-wrapper,
 	.mint-cell-left,
 	.mint-cell-right {

@@ -1,6 +1,6 @@
 <template>
 	<div v-if="groups" >
-		<!--  群列表-->
+		<!--  群消息列表-->
 		<div v-for="group in groups">
 			<portraitCard :item="group" :hasRightBtn="hasRightBtn" :type="2"></portraitCard>
 		</div>

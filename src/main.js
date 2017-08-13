@@ -8,9 +8,12 @@ import group from 'components/group/group';
 import login from 'components/login/login';
 import forget from 'components/forget/forget';
 import register from 'components/register/register';
-import chatroom from 'components/chatroom/chatroom';
+import chatroomGroup from 'components/chatroom/chatroom-group';
+import chatroomFrd from 'components/chatroom/chatroom-frd';
 import friends from 'components/friends/friends';
 import createMsg from 'components/recent/createMsg';
+import setting from 'components/setting/setting';
+import groupCreate from 'components/group/group-create';
 Vue.use(VueRouter);
 Vue.prototype.$ajax = axios;
 Vue.apiUrl = 'http://localhost:8088/api' ;
@@ -19,25 +22,35 @@ const routes = [{
 	component: main,
 	children: [
 		{
-			path: 'recent',
+			path: '/recent',
 			component: recent
 		},
 		{
-			path: 'group',
+			path: '/group',
 			component: group
 		},
 		{
-			path: 'friends',
+			path: '/friends',
 			component: friends
 		},
 		{
-			path: 'chatroom',
-			component: chatroom
+			path: '/chatroom-group/:uid',
+			component: chatroomGroup
+		},
+		{
+			path: '/chatroom-frd/:uid',
+			component: chatroomFrd
+		}, {
+			path: '/setting',
+			component: setting
 		}
 	]
 }, {
 	path: '/create_msg',
 	component: createMsg
+}, {
+	path: '/group-create',
+	component: groupCreate
 },{
 	path: '/register',
 	component: register
