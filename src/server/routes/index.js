@@ -5,17 +5,10 @@ module.exports = function (app, urlencodedParser) {
 	 */
 	app.post('/register', urlencodedParser, function (req, res) {
 		var conn = util.db();
-<<<<<<< HEAD
 		var sqlStr = 'INSERT INTO tbuser(sEmail,sPassword,sNickName) VALUES(?,?,?)';
 		var sqlStrParams = [req.body.sEmail, req.body.sPassword, req.body.sNickName];
 		console.log(req.session);
 		conn.query(sqlStr, sqlStrParams, function (err, result) {
-=======
-		var addSql = 'INSERT INTO tbuser(sEmail,sPassword,sNickName) VALUES(?,?,?)';
-		var addSqlParams = [req.body.sEmail, req.body.sPassword, req.body.sNickName];
-		console.log(req.session);
-		conn.query(addSql, addSqlParams, function (err, result) {
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			if (err) {
 				err && util.log('error', err);
 				util.responseJson(res, -1, '系统繁忙，请稍后再试');
@@ -39,17 +32,10 @@ module.exports = function (app, urlencodedParser) {
 		}
 		var conn = util.db();
 		console.log(req.body);
-<<<<<<< HEAD
 		var sqlStr = 'select * from tbuser where sEmail=?';
 		conn.query(sqlStr, [req.body.sEmail], function (err, result) {
 			if (err) {
 				util.log('error', err + sqlStr);
-=======
-		var addSql = 'select * from tbuser where sEmail=?';
-		conn.query(addSql, [req.body.sEmail], function (err, result) {
-			if (err) {
-				util.log('error', err + addSql);
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 				util.responseJson(res, -1, '系统繁忙，请稍后再试');
 				return;
 			} else if (result.length <= 0) {
@@ -66,11 +52,7 @@ module.exports = function (app, urlencodedParser) {
 				};
 				delete frdInfo['sPassword'];
 				delete frdInfo['sSalt'];
-<<<<<<< HEAD
 				util.responseJson(res, 0, '登录成功', frdInfo);
-=======
-				util.responseJson(res, 0, '登录成功',frdInfo);
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 				return;
 			} else {
 				util.responseJson(res, -1, '密码有误');
@@ -113,19 +95,11 @@ module.exports = function (app, urlencodedParser) {
 			},
 			function (frdInfo, callback) {
 				console.log(frdInfo);
-<<<<<<< HEAD
 				var sqlStr = "INSERT INTO tbfriend(ibelongTo,iUserId) VALUES(?,?)";
 				var sqlStrParams = [req.session.userInfo.iUserId, frdInfo.iUserId];
 				console.log(sqlStrParams);
 				var conn = util.db();
 				conn.query(sqlStr, sqlStrParams, function (err, result) {
-=======
-				var addSql = "INSERT INTO tbfriend(ibelongTo,iUserId) VALUES(?,?)";
-				var addSqlParams = [req.session.userInfo.iUserId, frdInfo.iUserId];
-				console.log(addSqlParams);
-				var conn = util.db();
-				conn.query(addSql, addSqlParams, function (err, result) {
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 					if (err) {
 						err && util.log('error', err);
 						util.responseJson(res, -12, '添加好友失败!');
@@ -170,7 +144,6 @@ module.exports = function (app, urlencodedParser) {
 			return;
 		}
 		var conn = util.db();
-<<<<<<< HEAD
 		var sqlStr = 'select u.iUserId iUserId,sNickName,sEmail,sPorTrait,f.sDesc,sRemark,sLastMsg,iIsActive ' +
 			'from tbuser u inner join tbfriend  f on  u.iUserId=f.iUserId where f.ibelongTo=?';
 		conn.query(sqlStr, [req.session.userInfo.iUserId], function (err, result) {
@@ -179,20 +152,6 @@ module.exports = function (app, urlencodedParser) {
 				util.responseJson(res, -11, '系统繁忙，请稍后再试');
 				return;
 			}
-=======
-		var addSql = 'select u.iUserId iUserId,sNickName,sEmail,sPorTrait,f.sDesc,sRemark,sLastMsg,iIsActive '+
-			'from tbuser u inner join tbfriend  f on  u.iUserId=f.iUserId where f.ibelongTo=?';
-		conn.query(addSql, [req.session.userInfo.iUserId], function (err, result) {
-			if (err) {
-				util.log('error', err + addSql);
-				util.responseJson(res, -11, '系统繁忙，请稍后再试');
-				return;
-			} else if (result.length <= 0) {
-				util.responseJson(res, -13, '暂无好友');
-				return;
-			};
-
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			util.responseJson(res, 0, '', result);
 			return;
 		});
@@ -223,7 +182,6 @@ module.exports = function (app, urlencodedParser) {
 		});
 		conn.end();
 	});
-<<<<<<< HEAD
 
 	/**
 	 * 拉取好友消息列表
@@ -483,6 +441,4 @@ module.exports = function (app, urlencodedParser) {
 			return;
 		});
 	});
-=======
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 }

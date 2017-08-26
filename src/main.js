@@ -8,12 +8,8 @@ import group from 'components/group/group';
 import login from 'components/login/login';
 import forget from 'components/forget/forget';
 import register from 'components/register/register';
-<<<<<<< HEAD
 import chatroomGroup from 'components/chatroom/chatroom-group';
 import chatroomFrd from 'components/chatroom/chatroom-frd';
-=======
-import chatroom from 'components/chatroom/chatroom';
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 import friends from 'components/friends/friends';
 import createMsg from 'components/recent/createMsg';
 import setting from 'components/setting/setting';
@@ -38,7 +34,6 @@ const routes = [{
 			component: friends
 		},
 		{
-<<<<<<< HEAD
 			path: '/chatroom-group/:uid',
 			component: chatroomGroup
 		},
@@ -48,10 +43,6 @@ const routes = [{
 		}, {
 			path: '/setting',
 			component: setting
-=======
-			path: '/chatroom/:uid',
-			component: chatroom
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		}
 	]
 }, {

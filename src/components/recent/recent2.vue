@@ -14,7 +14,6 @@
 			</div>
 
 		</msgsFriends>
-<<<<<<< HEAD
 
 		<!--{
 		iFromUserId:2,
@@ -30,8 +29,6 @@
 		sContent:'我是卖假货的',
 		sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
 		},-->
-=======
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 
 	</div>
 </template>
@@ -44,81 +41,17 @@
 	import recentHeader from 'components/recent/recentHeader';
 	import createMsg from 'components/recent/createMsg';
 	import msgsFriends from 'components/common/msgs-friends';
-<<<<<<< HEAD
 	import axios from 'axios';
 	import {report,jsonToQuery} from 'common/js/util';
 	import store from 'common/js/store';
 	import msgItem from 'components/recent/msgItem';
 
-=======
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 	export default {
 		props: {},
 		data() {
 			return {
 				headHeight:0,
-<<<<<<< HEAD
 				msgList: []
-=======
-				msgList: {
-				    fromFriends:[{
-						iFromUserId:1,
-				        sNickName:'马云',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖假货的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iFromUserId:2,
-						sNickName:'马化腾',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iFromUserId:2,
-						sNickName:'马化腾',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iFromUserId:2,
-						sNickName:'马化腾',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iFromUserId:2,
-						sNickName:'马化腾',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iFromUserId:2,
-						sNickName:'马化腾',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					}],
-					fromGroups:[{
-						iGroupMsgId:1,
-						sGroupName:'6马云工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖假货的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
-						sGroupName:'last2马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					},{
-						iGroupMsgId:2,
-						sGroupName:'last1马化腾工作组',
-						dtCreateTime:'2017-3-21 15:42:12',
-						sContent:'我是卖Qb的',
-						sPortrait:'http://localhost:8088/static/img/portrait/user02.jpg'
-					}]
-				}
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			};
 		},
 		methods: {
@@ -162,12 +95,8 @@
 			groupList,
 			recentHeader,
 			createMsg,
-<<<<<<< HEAD
 			msgsFriends,
 			msgItem
-=======
-			msgsFriends
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		}
 	};
 </script>

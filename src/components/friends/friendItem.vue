@@ -26,13 +26,9 @@
 		<mt-cell-swipe
 			:right="rightButtons"
 			:id="item.iUserId"
-<<<<<<< HEAD
 			:refObj="item"
 			:title="item.sNickName"
 			:isCheck="isCheck" :isLink="isLink">
-=======
-			:title="item.sNickName">
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		</mt-cell-swipe>
 		</div>
 	</span>
@@ -47,21 +43,11 @@
 	import store from 'common/js/store';
 	export default {
 		props: {
-<<<<<<< HEAD
 			item: Object,
 			type: Number,
 			hasRightBtn: Boolean,
 			isCheck:Boolean,
 			isLink:Boolean
-=======
-			item: {
-				type: Object
-			},
-			type: {
-				type: Number
-			},
-			hasRightBtn: Boolean
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		},
 		data() {
 			return {

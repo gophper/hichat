@@ -80,11 +80,7 @@
 					if(response.data.ret == 0){
 						//路由到“最近的消息”
 						store.set('info',response.data.data);
-<<<<<<< HEAD
 						Vue.router.push({ path: 'recent' });
-=======
-						Vue.router.push({ path: 'recent' })
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 					}
 				}).catch(function (error) {
 					alert('登录失败！');

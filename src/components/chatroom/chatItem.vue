@@ -1,16 +1,10 @@
 <template>
-<<<<<<< HEAD
 
 	<div class="list border-none">
 		<div class="item" v-bind:class="classObject">
 			<img  :src="item.sPorTrait">
 			<p class="chat-text ng-binding" v-bind:class="classObject2"> {{item.sContent}}</p>
 		</div>
-=======
-	<div class="item item-avatar-right-s chat-me text-right" >
-		<img ng-src="img/user04.jpg" src="img/user04.jpg">
-		<p class="chat-text positive-bg text-left"> Ionic.</p>
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 	</div>
 </template>
 
@@ -24,11 +18,7 @@
 		},
 		data() {
 			return {
-<<<<<<< HEAD
 
-=======
-				frd:''
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			}
 		},
 		methods: {
@@ -37,16 +27,12 @@
 			},
 			openSearch(){
 			}
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		},
 		components: {
 			popupInput,
 			goback
 		},
-<<<<<<< HEAD
 		computed: {
 			classObject(){
 				if(this.item.iFromUserId  == store.get('info').iUserId){
@@ -64,10 +50,6 @@
 			}
 		},
 		mounted(){
-=======
-		mounted(){
-			this.frd = store.get('frd_'+ this.$route.params.uid);
->>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			console.log(this.item);
 		}
 	};
