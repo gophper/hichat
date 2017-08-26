@@ -8,7 +8,11 @@ exports.responseJson = function(res,ret,msg,data) {
 exports.db = function (){
 	var db  = require('mysql');
 	var conn = db.createConnection({
+<<<<<<< HEAD
 		host     : '192.168.1.105',
+=======
+		host     : 'localhost',
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 		user     : 'root',
 		password : 'root',
 		port: '3307',
@@ -25,6 +29,7 @@ exports.authorize = function(req, res) {
 		exports.responseJson(res, -1, '尚未登录！');
 	}
 }
+<<<<<<< HEAD
 exports.EVN = 'DEV';
 
 exports.dateFormat = function (this_,fmt) { //author: meizz
@@ -45,3 +50,5 @@ exports.dateFormat = function (this_,fmt) { //author: meizz
 exports.escape = function (str) {
 	return str.replace(',',';').replace("'","\\'").replace('"','\\"');
 }
+=======
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767

@@ -39,6 +39,7 @@ export function report(error) {
 	//待实现
 	console.log(error);
 }
+<<<<<<< HEAD
 
 export function wsk(url)
 {
@@ -64,3 +65,5 @@ export function store(error) {
 	let st = require('./store.js');
 	return st;
 }
+=======
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767

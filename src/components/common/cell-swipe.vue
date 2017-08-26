@@ -16,10 +16,16 @@
 		:is-check="isCheck"
 		ref="cell"
 		:value="value">
+<<<<<<< HEAD
 		<!--  这一块暂时没用-->
 		<div slot="left" class="mint-cell-swipe-buttongroup" ref="left">
 			<a class="mint-cell-swipe-button" v-for="btn in left" :style="btn.style"
 			   @click.stop="btn.handler && btn.handler(), swipeMove()"
+=======
+       <!--  这一块暂时没用-->
+		<div slot="left"	class="mint-cell-swipe-buttongroup"	ref="left">
+			<a class="mint-cell-swipe-button"  v-for="btn in left"  :style="btn.style"   @click.stop="btn.handler && btn.handler(), swipeMove()"
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			   v-html="btn.content"></a>
 		</div>
 		<span v-if="$slots.title" slot="title">
@@ -28,9 +34,16 @@
 		<span v-if="$slots.icon" slot="icon">
      		 <slot name="icon"></slot>
    		 </span>
+<<<<<<< HEAD
 		<div slot="right" class="mint-cell-swipe-buttongroup" ref="right">
 			<a class="mint-cell-swipe-button" :style="right.style"
 			   @click.stop="right.removeHandler && right.removeHandler(id), swipeMove()" v-html="right.content">
+=======
+
+		<div slot="right"	class="mint-cell-swipe-buttongroup"	ref="right">
+			<a	 class="mint-cell-swipe-button"  :style="right.style"
+				  @click.stop="right.removeHandler && right.removeHandler(id), swipeMove()"  v-html="right.content">
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			</a>
 		</div>
 		<div class="mint-cell-value" :class="{ 'is-link' : isLink }" slot="value">
@@ -77,11 +90,18 @@
 		directives: {Clickoutside},
 
 		props: {
+<<<<<<< HEAD
 			id: Number,
 			to: String,
 			left: Array,
 			right: Object,
 			refObj: Object,
+=======
+		    id:Number,
+			to: String,
+			left: Array,
+			right: Object,
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 			icon: String,
 			title: String,
 			label: String,
@@ -195,6 +215,7 @@
 			},
 
 			endDrag(evt) {
+<<<<<<< HEAD
 				/*console.log(this.swiping+'|'+this.offsetLeft+'|'+this.id+this.$refs.right+'|'+evt.target);
 				 console.log(evt.target);
 				 console.log(this.$refs.right.childNodes[0] == evt.target);*/
@@ -202,6 +223,15 @@
 				if (Math.abs(this.offsetLeft) <= 20 || !this.offsetLeft) {
 					//不是点击“移除”
 					if (this.$refs.right.childNodes[0] != evt.target && this.isLink) {
+=======
+			    /*console.log(this.swiping+'|'+this.offsetLeft+'|'+this.id+this.$refs.right+'|'+evt.target);
+				console.log(evt.target);
+				console.log(this.$refs.right.childNodes[0] == evt.target);*/
+			    //不在滑动中，并且位移不超过5px，则认为是点击跳转
+			    if(Math.abs(this.offsetLeft) <= 20 || !this.offsetLeft){
+			        //不是点击“移除”
+			        if(this.$refs.right.childNodes[0] != evt.target){
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 						this.right.clickHandler(this.id);
 					}
 				}

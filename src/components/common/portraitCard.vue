@@ -1,5 +1,8 @@
 <template>
+<<<<<<< HEAD
 	<!--好友消息-->
+=======
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 	<span v-if="type === 1">
 		<div class="page-cell">
 		<mt-cell-swipe
@@ -11,7 +14,11 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
+<<<<<<< HEAD
    <!-- 群消息-->
+=======
+
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 	<span v-else-if="type === 2">
 		<div class="page-cell">
 		<mt-cell-swipe
@@ -23,6 +30,20 @@
 		</mt-cell-swipe>
 	</div>
 	</span>
+<<<<<<< HEAD
+=======
+	<!--好友列表-->
+	<span v-else-if="type === 3">
+		<div class="page-cell">
+		<mt-cell-swipe
+			:right="rightButtons"
+			:id="item.iUserId"
+			:title="item.sNickName">
+		</mt-cell-swipe>
+		</div>
+	</span>
+
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 </template>
 
 <script type="text/ecmascript-6">
@@ -76,7 +97,11 @@
 					});
 				},
 				clickHandler: (id) => {
+<<<<<<< HEAD
 					Vue.router.push({ path: 'chatroom-frd/'+id })
+=======
+					Vue.router.push({ path: 'chatroom/'+id })
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 				}
 			};
 		},

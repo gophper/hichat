@@ -24,7 +24,11 @@
 			<div v-if="friendsList">
 				<!--  好友列表-->
 				<div  v-for="friend in friendsList">
+<<<<<<< HEAD
 					<friendItem :isLink="true" :item="friend" :hasRightBtn="true" :type="3"></friendItem>
+=======
+					<friendItem :item="friend" :hasRightBtn="true" :type="3"></friendItem>
+>>>>>>> 3d568d76f6634de4601e7c24fde467c37d568767
 				</div>
 			</div>
 		</msgsFriends>
